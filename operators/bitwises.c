@@ -68,3 +68,34 @@ void bw_onebi(bigint_t *res, bigint_t a)
     for (int i = 0; i < a.size; ++i)
         res->n[i] = ~a.n[i];
 }
+
+void bw_lsbi(bigint_t *res, bigint_t a, int n)
+{
+    assert(n > 0);
+
+    deepbi(res, a);
+    for (int i = 0; i < n; ++i)
+        addbi(res, *res, *res);
+}
+
+void bw_rsbi(bigint_t *res, bigint_t a, int n)
+{
+    bigint_t t = {0};
+    int carry = 0;
+
+    deepbi(&t, a);
+    reallocbi(res, t.size);
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = t.size - 1; j >= 0; --j)
+        {
+            res->n[j] = (carry << 7) | t.n[j] >> 1;
+            carry = 0;
+            if (t.n[j] & 1)
+                carry = 1;
+        }
+    }
+
+    cleanbi(res);
+}

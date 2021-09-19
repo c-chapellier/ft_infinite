@@ -30,21 +30,31 @@ typedef struct  bigint_s
 {
     uint8_t *n;
     int     size;
+    int     neg;
 }               bigint_t;
 
 extern int debug;
 
+// debug
 void print_uint8(uint8_t *n);
 
+// core
+void freebi(bigint_t *a);
 void reallocbi(bigint_t *bi, int newsize);
+void cleanbi(bigint_t *a);
+void swapbi(bigint_t *a, bigint_t *b);
+void deepbi(bigint_t *dst, bigint_t src);
 
+// converter
 void atobi(bigint_t *res, const char *s, int base);
 
+// arithmetic
 void addbi(bigint_t *res, bigint_t a, bigint_t b);
 void subbi(bigint_t *res, bigint_t a, bigint_t b);
 void mulbi(bigint_t *res, bigint_t a, bigint_t b);
 void divbi(bigint_t *res, bigint_t a, bigint_t b);
 
+// relational
 int equals_bi(bigint_t a, bigint_t b);
 int not_equals_bi(bigint_t a, bigint_t b);
 int smaller_bi(bigint_t a, bigint_t b);
@@ -52,16 +62,20 @@ int greater_bi(bigint_t a, bigint_t b);
 int smaller_equals_bi(bigint_t a, bigint_t b);
 int greater_equals_bi(bigint_t a, bigint_t b);
 
+// logical
 int notbi(bigint_t a);
 int andbi(bigint_t a, bigint_t b);
 int orbi(bigint_t a, bigint_t b);
 
-// not tested
+// bitwise
 void bw_andbi(bigint_t *res, bigint_t a, bigint_t b);
 void bw_orbi(bigint_t *res, bigint_t a, bigint_t b);
 void bw_xorbi(bigint_t *res, bigint_t a, bigint_t b);
 void bw_onebi(bigint_t *res, bigint_t a);
+void bw_lsbi(bigint_t *res, bigint_t a, int n);
+void bw_rsbi(bigint_t *res, bigint_t a, int n);
 
+// io
 void printbi(bigint_t a);
 
 #endif

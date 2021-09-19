@@ -1,5 +1,9 @@
 SRCS =	main.c \
 		core/reallocbi.c \
+		core/freebi.c \
+		core/cleanbi.c \
+		core/swapbi.c \
+		core/deepbi.c \
 		converters/atobi.c \
 		operators/arithmetic/addbi.c \
 		operators/arithmetic/subbi.c \
@@ -7,6 +11,7 @@ SRCS =	main.c \
 		operators/arithmetic/divbi.c \
 		operators/relationals.c \
 		operators/logicals.c \
+		operators/bitwises.c \
 		io/printbi.c \
 		debug/print_uint8.c \
 

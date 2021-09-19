@@ -15,52 +15,46 @@ int main(int argc, char *argv[])
         atobi(&b, argv[3], 16);
         if (debug) printbi(b);
 
-        switch (argv[2][0])
-        {
-        case '+':
+        if (argv[2][0] == '+')
             addbi(&res, a, b);
-            break;
-        // case '-':
-        //     subbi(&res, a, b);
-            // break;
-        // case '*':
-        //     mulbi(&res, a, b);
-        //     break;
-        // case '/':
-        //     divbi(&res, a, b);
-            // break;
-        case '=':
-            printf("%d\n", equals_bi(a, b));
-            exit(0);
-        case '!':
-            printf("%d\n", not_equals_bi(a, b));
-            exit(0);
-        case '>':
-            printf("%d\n", greater_bi(a, b));
-            exit(0);
-        case '<':
-            printf("%d\n", smaller_bi(a, b));
-            exit(0);
-        case 'g':
-            printf("%d\n", greater_equals_bi(a, b));
-            exit(0);
-        case 's':
-            printf("%d\n", smaller_equals_bi(a, b));
-            exit(0);
-        case 'n':
-            printf("%d\n", notbi(a));
-            exit(0);
-        case '&':
-            printf("%d\n", andbi(a, b));
-            exit(0);
-        case '|':
-            printf("%d\n", orbi(a, b));
-            exit(0);
-
-        default:
-            fprintf(stderr, "operation '%c' is not implemented\n", argv[2][0]);
-            exit(1);
-        }
+        else if (argv[2][0] == '-')
+            subbi(&res, a, b);
+        else if (argv[2][0] == '*')
+            mulbi(&res, a, b);
+        else if (argv[2][0] == '/')
+            divbi(&res, a, b);
+        else if (argv[2][0] == '=')
+            printf("%d\n", equals_bi(a, b)), exit(0);
+        else if (argv[2][0] == '!' && argv[2][1] == '=')
+            printf("%d\n", not_equals_bi(a, b)), exit(0);
+        else if (argv[2][0] == '>' && argv[2][1] == '=')
+            printf("%d\n", greater_equals_bi(a, b)), exit(0);
+        else if (argv[2][0] == '<' && argv[2][1] == '=')
+            printf("%d\n", smaller_equals_bi(a, b)), exit(0);
+        else if (argv[2][0] == '<' && argv[2][1] == '<')
+            bw_lsbi(&res, a, 1);
+        else if (argv[2][0] == '>' && argv[2][1] == '>')
+            bw_rsbi(&res, a, 1);
+        else if (argv[2][0] == '>')
+            printf("%d\n", greater_bi(a, b)), exit(0);
+        else if (argv[2][0] == '<')
+            printf("%d\n", smaller_bi(a, b)), exit(0);
+        else if (argv[2][0] == '!')
+            printf("%d\n", notbi(a)), exit(0);
+        else if (argv[2][0] == '&' && argv[2][1] == '&')
+            printf("%d\n", andbi(a, b)), exit(0);
+        else if (argv[2][0] == '|' && argv[2][1] == '|')
+            printf("%d\n", orbi(a, b)), exit(0);
+        else if (argv[2][0] == '&')
+            bw_andbi(&res, a, b);
+        else if (argv[2][0] == '|')
+            bw_orbi(&res, a, b);
+        else if (argv[2][0] == '^')
+            bw_xorbi(&res, a, b);
+        else if (argv[2][0] == '~')
+            bw_onebi(&res, a);
+        else
+            fprintf(stderr, "operation '%c' is not implemented\n", argv[2][0]), exit(1);
 
         printbi(res);
         return 0;

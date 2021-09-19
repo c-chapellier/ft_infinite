@@ -4,6 +4,7 @@ void printbi(bigint_t a)
 {
     if (!debug)
     {
+        a.neg && printf("-");
         for (int i = a.size - 1; i >= 0; --i)
             i == a.size - 1 ? printf("%x", a.n[i]) : printf("%02x", a.n[i]);
         printf("\n");
@@ -24,6 +25,7 @@ void printbi(bigint_t a)
         printf("\n");
 
         printf("    size = %d\n", a.size);
+        printf("    neg = %d\n", a.neg);
         printf("}\n");
     }
 }

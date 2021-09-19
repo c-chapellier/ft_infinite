@@ -18,12 +18,13 @@ void atobi(bigint_t *res, const char *s, int base)
 
     size_t n = strlen(s);
 
+    res->neg = s[0] == '-';
+    n -= res->neg;
+
     reallocbi(res, (n + 1) / 2);
 
     for (int i = 0; i + 1 < n; i += 2)
-    {
         res->n[i/2] = ascii_to_hex(s[n - 1 - i - 1])*16 + ascii_to_hex(s[n - 1 - i]);
-    }
 
     if (n & 1)
         res->n[n / 2] = ascii_to_hex(s[0]);
